@@ -27,22 +27,20 @@ template Main() {
     issuerX === bits2PointA.out[0];
     issuerY === bits2PointA.out[1];
 
-    component bitifyAddress = Num2Bin(160);
+    component bitifyAddress = Num2Bits(160);
     bitifyAddress.in <== address;
 
-    component bitifyWage = Num2Bin(32);
+    component bitifyWage = Num2Bits(32);
     bitifyWage.in <== wage;
 
     // verify signature
     component signatureVerifier = EdDSAVerifier(160 + 32);
     for (var i = 0; i < 160; i++) {
-        signatureVerifier.msg[i] <== bitifyAddress[i];
+        signatureVerifier.msg[i] <== bitifyAddress.out[i];
     }
     for (var i = 0; i < 32; i++) {
-        signatureVerifier.msg[160 + i] <== bitifyWage[i];
+        signatureVerifier.msg[160 + i] <== bitifyWage.out[i];
     }
-    signatureVerifier.msg[0] <== address;
-    signatureVerifier.msg[1] <== wage;
     signatureVerifier.A <== A;
     signatureVerifier.R8 <== R8;
     signatureVerifier.S <== S;
