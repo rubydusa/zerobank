@@ -39,9 +39,9 @@ function concatUint8Arrays(array1, array2) {
 
 const PRIVATE_KEY = Buffer.from('01020304050607080910111213141516', 'hex');
 const ADDRESS = Buffer.alloc(20);
-ADDRESS.copy(Buffer.from('03030303', 'hex'));
+Buffer.from('03030303', 'hex').copy(ADDRESS);
 const WAGE = Buffer.alloc(4);
-WAGE.copy(Buffer.from('000000ff', 'hex'));
+Buffer.from('000000ff', 'hex').copy(WAGE);
 
 const WAGE_REQUIRED = 30n;
 
@@ -64,6 +64,8 @@ generateCircuitTest({
 
                 console.log(eddsa.babyJub.F.toObject(A[0]));
                 console.log(eddsa.babyJub.F.toObject(A[1]));
+
+                console.log({ address: buffer2Num(ADDRESS), wage: buffer2Num(WAGE), WAGE_REQUIRED});
 
                 return {
                     address: buffer2Num(ADDRESS),
