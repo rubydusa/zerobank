@@ -4,15 +4,16 @@ include "../node_modules/circomlib/circuits/eddsa.circom";
 include "../node_modules/circomlib/circuits/pointbits.circom";
 include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/comparators.circom";
+include "../node_modules/circomlib/circuits/bitify.circom";
 
 // does user have wage above a certain range?
 template Main() {
-    signal input address;  // public
+    signal input address;  // public (160 bits)
     signal input wageRequired;  // public
     signal input issuerX;  // public
     signal input issuerY;  // public
 
-    signal input wage;  // private
+    signal input wage;  // private (32 bits)
 
     signal input A[256];  // bits of issuer public key
     signal input R8[256];  // signature
@@ -26,8 +27,20 @@ template Main() {
     issuerX === bits2PointA.out[0];
     issuerY === bits2PointA.out[1];
 
+    component bitifyAddress = Num2Bin(160);
+    bitifyAddress.in <== address;
+
+    component bitifyWage = Num2Bin(32);
+    bitifyWage.in <== wage;
+
     // verify signature
-    component signatureVerifier = EdDSAVerifier(2);
+    component signatureVerifier = EdDSAVerifier(160 + 32);
+    for (var i = 0; i < 160; i++) {
+        signatureVerifier.msg[i] <== bitifyAddress[i];
+    }
+    for (var i = 0; i < 32; i++) {
+        signatureVerifier.msg[160 + i] <== bitifyWage[i];
+    }
     signatureVerifier.msg[0] <== address;
     signatureVerifier.msg[1] <== wage;
     signatureVerifier.A <== A;
