@@ -1,2 +1,8 @@
-artifacts
+# node js
 node_modules
+
+# circom
+artifacts
+powersOfTau*
+data/keys/
+
