@@ -2,24 +2,26 @@ pragma circom 2.1.4;
 
 include "../node_modules/circomlib/circuits/eddsa.circom";
 include "../node_modules/circomlib/circuits/pointbits.circom";
-include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/comparators.circom";
 include "../node_modules/circomlib/circuits/bitify.circom";
 
-// does user have wage above a certain range?
 template Main() {
-    signal input address;  // public (160 bits)
-    signal input wageRequired;  // public
-    signal input issuerX;  // public
-    signal input issuerY;  // public
+    // public
+    signal input address;
+    signal input wageRequired;
+    signal input issuerX;
+    signal input issuerY;
 
-    signal input wage;  // private (32 bits)
+    // private
+    signal input wage;
 
+    // signature
     signal input A[256];  // bits of issuer public key
     signal input R8[256];  // signature
     signal input S[256];  // signature
 
-    signal output isTrue; // 1 if wage >= wageRequired 0 otherwise
+    // 1 if wage >= wageRequired 0 otherwise
+    signal output isTrue; 
 
     // verify that public key of signature matches that of issuer
     component bits2PointA = Bits2Point_Strict();

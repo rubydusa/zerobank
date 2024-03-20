@@ -11,7 +11,6 @@ interface IWageVerifier {
 }
 
 interface IIncomeRegistry {
-    // TODO: might change to use packed public key format if confusing to explain
     function publicKey() external view returns (uint256, uint256);
 }
 
