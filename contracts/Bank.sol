@@ -47,8 +47,6 @@ contract Bank {
             wageRequired = 20_000;
         }
 
-        // maybe it's really better to change to use packed format
-        // to keep the notation of a public key being an arbitrary string of bytes
         (uint256 issuerX, uint256 issuerY) = incomeRegistry.publicKey();
 
         uint256[5] memory input = [
