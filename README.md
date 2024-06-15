@@ -24,6 +24,8 @@ Secondly, users retrieve certificates from that authority with their income data
 Then, when users wish to register, they create a zero knowledge proof that their income is signed by said authority, and that their income is greater than the threshold set by the bank. By utilizing a zero knowledge proof, users refrain from revealing their exact income while simulteniously proving it is in a certain range.
 The bank's registration smart contract can trustlessly verify upon registration that a user submits a valid proof.
 
+![solution](./presentation/solution.png)
+
 ### Points for improvements and expansion
 This solution is kept very simple for demonstration purposes, but there are many glaring issues that can be addressed and improved upon. These examples emphasize the versatility of ZK and how much power it gives to application developers.
 
@@ -67,4 +69,9 @@ Run tests:
 ```
 > npm test
 > forge test
+```
+
+To generate verifier contracts:
+```
+> node ./script/verifierContracts.js
 ```
