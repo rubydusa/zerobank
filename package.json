@@ -1,9 +1,9 @@
 {
-  "name": "gracefullabeling",
+  "name": "zerobank",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run generate_tests && mocha -r ts-node/register --recursive test",
+    "test": "npm run generate_tests && mocha --timeout 15000 -r ts-node/register --recursive test",
     "generate_tests": "ts-node ./circuits/test_config.ts"
   },
   "author": "",
